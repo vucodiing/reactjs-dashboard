@@ -1,0 +1,8 @@
+.appLayout {
+    display: flex;
+    justify-content: space-between;
+    background-color: aqua;
+}
+.appMain {
+    width: calc(100% - var(--sidebar-width));
+}

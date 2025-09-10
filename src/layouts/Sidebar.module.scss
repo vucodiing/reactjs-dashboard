@@ -1,0 +1,16 @@
+.sidebar {
+  background-color: #fff;
+  height: 100svh;
+  width: var(--sidebar-width);
+  ul {
+    padding: 0;
+  }
+  &__logo {
+    height: var(--header-height);
+    display: grid;
+    place-content: center;
+  }
+  &__level2 a{
+    padding-left: 50px !important;
+  }
+}

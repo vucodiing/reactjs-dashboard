@@ -1,0 +1,16 @@
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
+import { Outlet } from "react-router-dom";
+import styles from "./Layout.module.scss";
+
+export default function Layout() {
+  return (
+    <div className={styles.appLayout}>
+      <Sidebar />
+      <div className={styles.appMain}>
+        <Navbar />
+        <Outlet />
+      </div>
+    </div>
+  );
+}

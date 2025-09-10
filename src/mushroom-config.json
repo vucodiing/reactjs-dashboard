@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schema.siten.vn/mushroom/mushroom-cli.json",
+  "update": {
+    "ts-code": {
+      "steps": [
+        {
+          "action": "pull",
+          "source": "https://cloud-api.mongodb.siten.vn/mushroom.api.ts",
+          "destination": "./src/service/api/mushroom-api.ts"
+        }
+      ]
+    }
+  }
+}
+
