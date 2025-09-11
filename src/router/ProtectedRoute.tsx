@@ -19,7 +19,7 @@ const PrivateRoute = ({
   if (!isHasToken)
     return <Navigate to="/login" replace state={{ from: location }} />;
   if (!roles || roles.every((role) => !(allowRoles as string[]).includes(role)))
-    return <Navigate to="/not-found" />;
+    return <Navigate to="/403" />;
   return children;
 };
 

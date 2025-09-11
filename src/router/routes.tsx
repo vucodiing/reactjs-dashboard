@@ -55,6 +55,10 @@ const routes: IRoute[] = [
     element: Login,
   },
   {
+    path: "/403",
+    element: React.lazy(() => import("../pages/Forbidden/Forbidden")),
+  },
+  {
     path: "*",
     element: React.lazy(() => import("../pages/NotFound/NotFound")),
   },
