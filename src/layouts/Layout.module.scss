@@ -5,4 +5,5 @@
 }
 .appMain {
     width: calc(100% - var(--sidebar-width));
+    transition: 0.2s;
 }

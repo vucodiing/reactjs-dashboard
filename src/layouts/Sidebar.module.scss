@@ -2,6 +2,7 @@
   background-color: #fff;
   height: 100svh;
   width: var(--sidebar-width);
+  transition: 0.2s;
   ul {
     padding: 0;
   }
@@ -12,5 +13,15 @@
   }
   &__level2 a{
     padding-left: 50px !important;
+  }
+  &__open {
+    span, svg[data-testid="ExpandLessIcon"], svg[data-testid="ExpandMoreIcon"] {
+      visibility: visible;
+    }
+  }
+   &__close {
+    span, svg[data-testid="ExpandLessIcon"], svg[data-testid="ExpandMoreIcon"] {
+      visibility: hidden;
+    }
   }
 }

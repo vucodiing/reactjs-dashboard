@@ -7,11 +7,13 @@ import {
 } from "@mui/material";
 import { NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSettingStore } from "../store/useSettingStore";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import routes from "../router/routes";
 import styles from "./Sidebar.module.scss";
 export default function SidebarMenu() {
+  const { isSidebarOpen } = useSettingStore();
   const location = useLocation();
   const [open, setOpen] = useState<string | null>(null);
 
@@ -37,7 +39,12 @@ export default function SidebarMenu() {
   }, [location.pathname]);
 
   return (
-    <div className={styles.sidebar}>
+    <div
+      className={`${styles.sidebar} ${
+        isSidebarOpen ? styles.sidebar__open : styles.sidebar__close
+      }`}
+      style={{ width: "var(--sidebar-width)" }}
+    >
       <div className={styles.sidebar__logo}>ADMIN</div>
       <MenuList>
         {routes[0].children?.map((item) => {
@@ -52,10 +59,19 @@ export default function SidebarMenu() {
                     </ListItemIcon>
                   )}
                   <ListItemText primary={item.name} />
-                  {open === item.name ? <ExpandLess /> : <ExpandMore />}
+                  {open === item.name ? (
+                    <ExpandLess className="" />
+                  ) : (
+                    <ExpandMore />
+                  )}
                 </MenuItem>
-                <Collapse in={open === item.name} timeout="auto" unmountOnExit className={styles.sidebar__level2}>
-                  <MenuList >
+                <Collapse
+                  in={open === item.name && isSidebarOpen}
+                  timeout="auto"
+                  unmountOnExit
+                  className={styles.sidebar__level2}
+                >
+                  <MenuList>
                     {item.children.map((child) => (
                       <MenuItem
                         key={child.name}

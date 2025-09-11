@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Button, TextField, Typography, Paper } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
+import { userStore } from "../../store/UserStore";
 import mushroom from "../../service/api/mushroom-api";
 export default function Login() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export default function Login() {
     password?: string;
   }>({});
   const from = location.state?.from?.pathname || "/";
+  const { setUserInfo } = userStore();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -24,8 +26,15 @@ export default function Login() {
     if (Object.keys(newErrors).length > 0) return;
     const responseLogin = await mushroom.$auth.loginAsync(username, password);
     const responseAuth = await mushroom.$auth.meAsync();
+    setUserInfo({
+      name: "Vu Coding",
+      email: "vu@example.com",
+      phone: "0123456789",
+      roles: ["Admin"],
+    });
     if (responseAuth.result.roles)
       localStorage.setItem("roles", JSON.stringify(responseAuth.result.roles));
+
     if (responseLogin.result.token) navigate(from, { replace: true });
   };
 
