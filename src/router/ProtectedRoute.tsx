@@ -1,16 +1,26 @@
 import { Navigate, useLocation } from "react-router-dom";
 import mushroom from "../service/api/mushroom-api";
-const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
+const PrivateRoute = ({
+  children,
+  allowRoles,
+}: {
+  children: React.ReactNode;
+  allowRoles?: string[];
+}) => {
   const location = useLocation();
-  const isAuthenticated = !!localStorage.getItem(
+  const isHasToken = !!localStorage.getItem(
     "mushroom.tokens[" + mushroom.$using() + "]"
   );
+  const rolesFromLocalStogare = localStorage.getItem("roles");
+  const roles = rolesFromLocalStogare
+    ? (JSON.parse(rolesFromLocalStogare) as string[])
+    : null;
 
-  return isAuthenticated ? (
-    children
-  ) : (
-    <Navigate to="/login" replace state={{ from: location }} />
-  );
+  if (!isHasToken)
+    return <Navigate to="/login" replace state={{ from: location }} />;
+  if (!roles || roles.every((role) => !(allowRoles as string[]).includes(role)))
+    return <Navigate to="/not-found" />;
+  return children;
 };
 
 export default PrivateRoute;

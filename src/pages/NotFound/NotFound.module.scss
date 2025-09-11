@@ -1,0 +1,12 @@
+.notFound {
+  height: 100svh;
+  width: 100svw;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  h1 {
+    color: var(--error-color);
+    font-size: calc(var(--font-size-lg) * 4);
+    margin: 0;
+  }
+}

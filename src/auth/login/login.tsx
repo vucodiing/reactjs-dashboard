@@ -22,8 +22,11 @@ export default function Login() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) return;
-    const response = await mushroom.$auth.loginAsync(username, password);
-    if (response.result.token) navigate(from, { replace: true });
+    const responseLogin = await mushroom.$auth.loginAsync(username, password);
+    const responseAuth = await mushroom.$auth.meAsync();
+    if (responseAuth.result.roles)
+      localStorage.setItem("roles", JSON.stringify(responseAuth.result.roles));
+    if (responseLogin.result.token) navigate(from, { replace: true });
   };
 
   const handleFocus = (field: "username" | "password") => {

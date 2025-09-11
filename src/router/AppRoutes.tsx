@@ -23,20 +23,11 @@ export default function AppRoutes() {
         );
       }
 
-      if (route.index) {
-        return (
-          <Route
-            key={index}
-            index
-            element={Element ? <Element /> : undefined}
-          />
-        );
-      }
-
       return (
         <Route
           key={index}
           path={route.path}
+          index={route.index}
           element={Element ? <Element /> : undefined}
         />
       );

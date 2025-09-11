@@ -12,7 +12,7 @@ const wrapProtectedRoutes = (routes: IRoute[]): IRoute[] => {
 
       newRoute.element = () =>
         route.protected ? (
-          <PrivateRoute>{wrappedElement}</PrivateRoute>
+          <PrivateRoute allowRoles={route.meta?.allowRoles as string[]}>{wrappedElement}</PrivateRoute>
         ) : (
           wrappedElement
         );
