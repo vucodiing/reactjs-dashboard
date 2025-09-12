@@ -1,8 +1,12 @@
 .sidebar {
-  background-color: #fff;
+  background-color: var(--sidebar-bg);
+  color: var(--text-light-color);
   height: 100svh;
   width: var(--sidebar-width);
   transition: 0.2s;
+  svg {
+    color: var(--text-light-color);
+  }
   ul {
     padding: 0;
   }

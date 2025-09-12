@@ -13,7 +13,7 @@ const routes: IRoute[] = [
     element: React.lazy(() => import("../layouts/Layout")),
     children: [
       {
-        path: "/",
+        path: "dashboard",
         name: "Dashboard",
         icon: DashboardIcon,
         index: true,

@@ -16,17 +16,19 @@
   --error-color: #f44336;
   --warning-color: #ff9800;
   --info-color: #2196f3;
-  --background-color: #f2f4f7;
+  --background-color: #f4f3ef;// #f2f4f7;
   --surface-color: #ffffff;
-  --text-color: #080809;
+  --text-dark-color: #080809;
+  --text-light-color: #bdbdbd;
   --text-info: #555555;
   --border-color: #e0e0e0;
   --shadow-color: rgba(0, 0, 0, 0.1);
+  --sidebar-bg: #21211f;
   --sidebar-active-bg: #1976d2;
   --sidebar-active-color: #fff;
 
   /* Layout */
-  --sidebar-width: 200px;
+  --sidebar-width: 260px;
   --header-height: 60px;
   --footer-height: 50px;
   --container-max-width: 1200px;
