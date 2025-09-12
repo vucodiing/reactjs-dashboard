@@ -2,11 +2,12 @@ import * as React from "react";
 import type { IRoute } from "./type";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonIcon from "@mui/icons-material/Person";
+import { Map } from "@mui/icons-material";
 const Login = React.lazy(() => import("../auth/login/login"));
 const Dashboard = React.lazy(() => import("../pages/Dashboard/Dashboard"));
 const UserList = React.lazy(() => import("../pages/Users/UsersList"));
 const UserAdd = React.lazy(() => import("../pages/Users/UsersAdd"));
-
+const MapBox = React.lazy(()=> import("../pages/Map/Map"))
 const routes: IRoute[] = [
   {
     path: "/",
@@ -48,6 +49,12 @@ const routes: IRoute[] = [
           },
         ],
       },
+      {
+        path: "map",
+        name: "Map",
+        element: MapBox,
+        icon: Map,
+      }
     ],
   },
   {
