@@ -9,7 +9,9 @@ export default function Layout() {
       <Sidebar />
       <div className={styles.appMain}>
         <Navbar />
-        <Outlet />
+        <div className={styles.appContainer}>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

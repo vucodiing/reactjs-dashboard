@@ -6,3 +6,7 @@
     width: calc(100% - var(--sidebar-width));
     transition: 0.2s;
 }
+.appContainer {
+    padding: var(--spacing);
+    height: calc(100svh - var(--header-height) - var(--spacing)*2);
+}

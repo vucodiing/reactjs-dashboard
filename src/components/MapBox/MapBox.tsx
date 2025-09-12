@@ -26,7 +26,7 @@ export default function Map() {
   return (
     <div
       ref={mapContainer}
-      style={{ width: "100%", height: "calc(100% - var(--header-height))" }}
+      style={{ width: "100%", height: "100%" }}
     />
   );
 }
