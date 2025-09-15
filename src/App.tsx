@@ -14,7 +14,7 @@ export default function App() {
   }, [setUserInfo]);
   return (
     <>
-      <AppRoutes />;
+      <AppRoutes />
       <AlertGlobal />
     </>
   );
