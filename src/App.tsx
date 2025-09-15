@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import AppRoutes from "./router/AppRoutes";
 import { userStore } from "./store/UserStore";
+import AlertGlobal from "./components/AlertGlobal/AlertGlobal";
 export default function App() {
   const { setUserInfo } = userStore();
   useEffect(() => {
@@ -11,5 +12,10 @@ export default function App() {
       roles: ["Admin"],
     });
   }, [setUserInfo]);
-  return <AppRoutes />;
+  return (
+    <>
+      <AppRoutes />;
+      <AlertGlobal />
+    </>
+  );
 }
