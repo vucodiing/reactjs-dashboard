@@ -3,7 +3,6 @@ import type { IRoute } from "./type";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonIcon from "@mui/icons-material/Person";
 import { Map } from "@mui/icons-material";
-const Login = React.lazy(() => import("../auth/login/login"));
 const Dashboard = React.lazy(() => import("../pages/Dashboard/Dashboard"));
 const UserList = React.lazy(() => import("../pages/Users/UsersList"));
 const UserAdd = React.lazy(() => import("../pages/Users/UsersAdd"));
@@ -59,7 +58,11 @@ const routes: IRoute[] = [
   },
   {
     path: "/login",
-    element: Login,
+    element: React.lazy(() => import("../auth/login")),
+  },
+  {
+    path: "/change-password",
+    element: React.lazy(() => import("../auth/changePassword")),
   },
   {
     path: "/403",

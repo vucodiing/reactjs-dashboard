@@ -4,7 +4,6 @@ import wrapProtectedRoutes from "./wrapProtectedRoutes";
 import type { IRoute } from "./type";
 
 export default function AppRoutes() {
-  // Bọc các route protected
   const wrappedRoutes: IRoute[] = wrapProtectedRoutes(routes);
 
   const renderRoutes = (routesArr: IRoute[]) =>

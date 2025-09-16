@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, TextField, Typography, Paper } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
-import { userStore } from "../../store/UserStore";
-import { useAlertStore } from "../../store/alertStore";
-import mushroom from "../../service/api/mushroom-api";
-import type { MushroomError } from "../../service/api/mushroom-api";
+import { userStore } from "../store/UserStore";
+import { useAlertStore } from "../store/alertStore";
+import mushroom from "../service/api/mushroom-api";
+import type { MushroomError } from "../service/api/mushroom-api";
 
 export default function Login() {
   const { alertError } = useAlertStore();
@@ -49,8 +49,8 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: typeof errors = {};
-    if (!username.trim()) newErrors.username = "Vui lòng nhập tên đăng nhập";
-    if (!password.trim()) newErrors.password = "Vui lòng nhập mật khẩu";
+    if (!username.trim()) newErrors.username = "⚠️ Please input account";
+    if (!password.trim()) newErrors.password = "⚠️ Please input password";
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
@@ -58,10 +58,11 @@ export default function Login() {
       const responseLogin = await mushroom.$auth.loginAsync(username, password);
       const responseAuth = await mushroom.$auth.meAsync();
       setUserInfo({
+        account: responseAuth.result?.account,
         name: "Vu Coding",
         email: "vu@example.com",
         phone: "0123456789",
-        roles: ["Admin"],
+        roles: responseAuth.result?.roles || ["Admin"],
       });
       if (responseAuth.result.roles) {
         localStorage.setItem(
@@ -79,13 +80,17 @@ export default function Login() {
 
         if (diff > 0) {
           setTimeRemaining(diff);
-          alertError(`Tài khoản đã bị khóa. Sẽ mở sau ${formatTime(diff)}`);
+          alertError(
+            `Account locked. It will automatically unlock after ${formatTime(
+              diff
+            )}`
+          );
         }
       } else if (code === 37000 && !meta?.locked) {
         setTimeRemaining(null);
 
         alertError(
-          `Tài khoản hoặc mật khẩu chưa chính xác, còn ${meta?.remainingCount} lần đăng nhập`
+          `Invalid username or password. ${meta?.remainingCount} attempts left.`
         );
       } else {
         alertError(message);
@@ -107,12 +112,12 @@ export default function Login() {
     >
       <Paper elevation={3} sx={{ p: 4, width: 350 }}>
         <Typography variant="h5" component="h1" gutterBottom align="center">
-          Đăng nhập
+          LOGIN
         </Typography>
 
         <form onSubmit={handleSubmit} noValidate>
           <TextField
-            label="Tên đăng nhập"
+            label="Account"
             fullWidth
             margin="normal"
             value={username}
@@ -123,7 +128,7 @@ export default function Login() {
           />
 
           <TextField
-            label="Mật khẩu"
+            label="Password"
             type="password"
             fullWidth
             margin="normal"
@@ -136,7 +141,7 @@ export default function Login() {
 
           {timeRemaining !== null && timeRemaining > 0 && (
             <Typography color="error" sx={{ mt: 2, textAlign: "center" }}>
-              ⏳ Tài khoản sẽ được mở sau {formatTime(timeRemaining)}
+              ⏳ Account will automatically unlock after {formatTime(timeRemaining)}
             </Typography>
           )}
 
@@ -147,7 +152,7 @@ export default function Login() {
             fullWidth
             sx={{ mt: 2 }}
           >
-            Đăng nhập
+            LOGIN
           </Button>
         </form>
       </Paper>

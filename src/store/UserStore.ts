@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 interface UserInfo {
+  account?: string;
   name?: string;
   email?: string;
   phone?: string;

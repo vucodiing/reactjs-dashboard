@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 export default function BasicMenu() {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [showDialogConfirm, setShowDialogConfirm] =
+  const [showDialogConfirmLogout, setShowDialogConfirmLogout] =
     React.useState<boolean>(false);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -53,29 +53,36 @@ export default function BasicMenu() {
         }}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem
           onClick={() => {
             setAnchorEl(null);
-            setShowDialogConfirm(true);
+            navigate("/change-password", { replace: true });
+          }}
+        >
+          Change password
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setAnchorEl(null);
+            setShowDialogConfirmLogout(true);
           }}
         >
           Logout
         </MenuItem>
       </Menu>
 
-      <Dialog open={showDialogConfirm} onClose={handleClose}>
+      <Dialog open={showDialogConfirmLogout} onClose={handleClose}>
         <DialogTitle sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <WarningAmberIcon color="warning" />
-          Xác nhận đăng xuất
+          CONFIRM LOGOUT
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Bạn có chắc chắn muốn đăng xuất không?
+            Are you sure you want to log out?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowDialogConfirm(false)}>Huỷ</Button>
+          <Button onClick={() => setShowDialogConfirmLogout(false)}>Huỷ</Button>
           <Button
             onClick={handleLogout}
             color="error"
