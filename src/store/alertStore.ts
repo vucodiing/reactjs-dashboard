@@ -5,16 +5,16 @@ interface AlertStage {
   message: string;
   severity: AlertType;
   close: () => void;
-  success: (message: string) => void;
-  error: (message: string) => void;
-  warning: (message: string) => void;
+  alertSuccess: (message: string) => void;
+  alertError: (message: string) => void;
+  alertWarning: (message: string) => void;
 }
 export const useAlertStore = create<AlertStage>((set) => ({
   open: false,
   message: "",
   severity: "info",
   close: () => set({ open: false }),
-  success: (message) => set({ open: true, message, severity: "success" }),
-  error: (message) => set({ open: true, message, severity: "error" }),
-  warning: (message) => set({ open: true, message, severity: "warning" }),
+  alertSuccess: (message) => set({ open: true, message, severity: "success" }),
+  alertError: (message) => set({ open: true, message, severity: "error" }),
+  alertWarning: (message) => set({ open: true, message, severity: "warning" }),
 }));

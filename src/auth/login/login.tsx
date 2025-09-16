@@ -7,7 +7,7 @@ import mushroom from "../../service/api/mushroom-api";
 import type { MushroomError } from "../../service/api/mushroom-api";
 
 export default function Login() {
-  const { error } = useAlertStore();
+  const { alertError } = useAlertStore();
   const navigate = useNavigate();
   const location = useLocation();
   const [username, setUsername] = useState("");
@@ -79,16 +79,16 @@ export default function Login() {
 
         if (diff > 0) {
           setTimeRemaining(diff);
-          error(`Tài khoản đã bị khóa. Sẽ mở sau ${formatTime(diff)}`);
+          alertError(`Tài khoản đã bị khóa. Sẽ mở sau ${formatTime(diff)}`);
         }
       } else if (code === 37000 && !meta?.locked) {
         setTimeRemaining(null);
 
-        error(
+        alertError(
           `Tài khoản hoặc mật khẩu chưa chính xác, còn ${meta?.remainingCount} lần đăng nhập`
         );
       } else {
-        error(message);
+        alertError(message);
       }
     }
   };
