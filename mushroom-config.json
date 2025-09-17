@@ -5,7 +5,7 @@
       "steps": [
         {
           "action": "pull",
-          "source": "https://cloud-api.mongodb.siten.vn/mushroom.api.ts",
+          "source": "https://kiosk-dvc-api.test2.siten.vn/mushroom.api.ts",
           "destination": "./src/service/api/mushroom-api.ts"
         }
       ]
