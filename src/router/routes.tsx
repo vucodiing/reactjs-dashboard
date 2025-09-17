@@ -1,8 +1,6 @@
 import * as React from 'react';
 import type { IRoute } from './type';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import PersonIcon from '@mui/icons-material/Person';
-import { Map } from '@mui/icons-material';
+import { DashboardOutlined, PersonOutline, MapOutlined } from '@mui/icons-material';
 const Dashboard = React.lazy(() => import('../pages/Dashboard/Dashboard'));
 const UserList = React.lazy(() => import('../pages/Users/UsersList'));
 const UserAdd = React.lazy(() => import('../pages/Users/UsersAdd'));
@@ -15,7 +13,7 @@ const routes: IRoute[] = [
       {
         path: 'dashboard',
         name: 'Dashboard',
-        icon: DashboardIcon,
+        icon: DashboardOutlined,
         index: true,
         element: Dashboard,
         protected: true,
@@ -26,7 +24,7 @@ const routes: IRoute[] = [
       {
         path: 'users',
         name: 'Users',
-        icon: PersonIcon,
+        icon: PersonOutline,
         children: [
           {
             path: 'list',
@@ -52,7 +50,11 @@ const routes: IRoute[] = [
         path: 'map',
         name: 'Map',
         element: MapBox,
-        icon: Map,
+        protected: true,
+        icon: MapOutlined,
+        meta: {
+          allowRoles: ['User'],
+        },
       },
     ],
   },

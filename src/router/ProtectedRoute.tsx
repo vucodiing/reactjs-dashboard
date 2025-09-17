@@ -5,7 +5,7 @@ const PrivateRoute = ({
   allowRoles,
 }: {
   children: React.ReactNode;
-  allowRoles?: string[];
+  allowRoles: string[];
 }) => {
   const location = useLocation();
   const isHasToken = !!localStorage.getItem('mushroom.tokens[' + mushroom.$using() + ']');
@@ -13,7 +13,7 @@ const PrivateRoute = ({
   const roles = rolesFromLocalStogare ? (JSON.parse(rolesFromLocalStogare) as string[]) : null;
 
   if (!isHasToken) return <Navigate to="/login" replace state={{ from: location }} />;
-  if (!roles || roles.every((role) => !(allowRoles as string[]).includes(role)))
+  if (!allowRoles || !roles || roles.every((role) => !allowRoles.includes(role)))
     return <Navigate to="/403" />;
   return children;
 };
