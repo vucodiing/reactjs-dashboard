@@ -12,7 +12,8 @@ export default {
         'ci',       // cấu hình CI/CD
         'docs',     // tài liệu
         'test',     // test
-        'init'      // khởi tạo dự án
+        'init',     // khởi tạo dự án
+        'add'
       ]
     ],
   },
