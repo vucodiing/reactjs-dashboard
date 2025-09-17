@@ -1,5 +1,5 @@
-import MapComponent from "../../components/MapBox/MapBox";
+import MapComponent from '../../components/MapBox/MapBox';
 
-export default function MapBox(){
-    return <MapComponent />
+export default function MapBox() {
+  return <MapComponent />;
 }

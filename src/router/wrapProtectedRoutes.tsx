@@ -1,5 +1,5 @@
-import PrivateRoute from "./ProtectedRoute";
-import type { IRoute } from "./type";
+import PrivateRoute from './ProtectedRoute';
+import type { IRoute } from './type';
 
 const wrapProtectedRoutes = (routes: IRoute[]): IRoute[] => {
   return routes.map((route) => {
@@ -10,12 +10,7 @@ const wrapProtectedRoutes = (routes: IRoute[]): IRoute[] => {
 
       const wrappedElement = <Component />;
 
-      newRoute.element = () =>
-        route.protected ? (
-          <PrivateRoute allowRoles={route.meta?.allowRoles as string[]}>{wrappedElement}</PrivateRoute>
-        ) : (
-          wrappedElement
-        );
+      newRoute.element = () => (route.protected ? <PrivateRoute allowRoles={route.meta?.allowRoles as string[]}>{wrappedElement}</PrivateRoute> : wrappedElement);
     }
 
     if (route.children) {

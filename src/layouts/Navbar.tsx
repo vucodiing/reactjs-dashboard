@@ -1,8 +1,8 @@
-import Breadcrumb from "../components/Breadcrumb/Breadcrumb";
-import { useSettingStore } from "../store/useSettingStore";
-import MenuIcon from "@mui/icons-material/Menu";
-import UserMenu from "../components/UserMenu/UserMenu"
-import styles from "./Navbar.module.scss";
+import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
+import { useSettingStore } from '../store/useSettingStore';
+import MenuIcon from '@mui/icons-material/Menu';
+import UserMenu from '../components/UserMenu/UserMenu';
+import styles from './Navbar.module.scss';
 export default function Navbar() {
   const { toggleSidebar, isSidebarOpen, setSidebarOpen } = useSettingStore();
   return (

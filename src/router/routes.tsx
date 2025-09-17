@@ -1,77 +1,77 @@
-import * as React from "react";
-import type { IRoute } from "./type";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import PersonIcon from "@mui/icons-material/Person";
-import { Map } from "@mui/icons-material";
-const Dashboard = React.lazy(() => import("../pages/Dashboard/Dashboard"));
-const UserList = React.lazy(() => import("../pages/Users/UsersList"));
-const UserAdd = React.lazy(() => import("../pages/Users/UsersAdd"));
-const MapBox = React.lazy(()=> import("../pages/Map/Map"))
+import * as React from 'react';
+import type { IRoute } from './type';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PersonIcon from '@mui/icons-material/Person';
+import { Map } from '@mui/icons-material';
+const Dashboard = React.lazy(() => import('../pages/Dashboard/Dashboard'));
+const UserList = React.lazy(() => import('../pages/Users/UsersList'));
+const UserAdd = React.lazy(() => import('../pages/Users/UsersAdd'));
+const MapBox = React.lazy(() => import('../pages/Map/Map'));
 const routes: IRoute[] = [
   {
-    path: "/",
-    element: React.lazy(() => import("../layouts/Layout")),
+    path: '/',
+    element: React.lazy(() => import('../layouts/Layout')),
     children: [
       {
-        path: "dashboard",
-        name: "Dashboard",
+        path: 'dashboard',
+        name: 'Dashboard',
         icon: DashboardIcon,
         index: true,
         element: Dashboard,
         protected: true,
         meta: {
-          allowRoles: ["Admin", "User"],
-        },
+          allowRoles: ['Admin', 'User']
+        }
       },
       {
-        path: "users",
-        name: "Users",
+        path: 'users',
+        name: 'Users',
         icon: PersonIcon,
         children: [
           {
-            path: "list",
+            path: 'list',
             element: UserList,
-            name: "User List",
+            name: 'User List',
             protected: true,
             meta: {
-              allowRoles: ["User"],
-            },
+              allowRoles: ['User']
+            }
           },
           {
-            path: "add",
+            path: 'add',
             element: UserAdd,
-            name: "User Add",
+            name: 'User Add',
             protected: true,
             meta: {
-              allowRoles: ["User"],
-            },
-          },
-        ],
+              allowRoles: ['User']
+            }
+          }
+        ]
       },
       {
-        path: "map",
-        name: "Map",
+        path: 'map',
+        name: 'Map',
         element: MapBox,
-        icon: Map,
+        icon: Map
       }
-    ],
+    ]
   },
   {
-    path: "/login",
-    element: React.lazy(() => import("../auth/login")),
+    path: '/login',
+    element: React.lazy(() => import('../auth/login'))
   },
   {
-    path: "/change-password",
-    element: React.lazy(() => import("../auth/changePassword")),
+    path: '/change-password',
+    element: React.lazy(() => import('../auth/changePassword'))
   },
   {
-    path: "/403",
-    element: React.lazy(() => import("../pages/Forbidden/Forbidden")),
+    path: '/403',
+    element: React.lazy(() => import('../pages/Forbidden/Forbidden'))
   },
   {
-    path: "*",
-    element: React.lazy(() => import("../pages/NotFound/NotFound")),
-  },
+    path: '*',
+    element: React.lazy(() => import('../pages/NotFound/NotFound'))
+  }
 ];
 
 export default routes;

@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface SettingState {
   isSidebarOpen: boolean;
@@ -13,19 +13,15 @@ interface SettingState {
 export const useSettingStore = create<SettingState>((set) => ({
   isSidebarOpen: true, // mặc định mở
   setSidebarOpen: (open) => {
-    document.documentElement.style.setProperty(
-      "--sidebar-width",
-      open ? "240px" : "60px"
-    );
+    document.documentElement.style.setProperty('--sidebar-width', open ? '240px' : '60px');
     set({ isSidebarOpen: open });
   },
-  toggleSidebar: () =>
-    set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
+  toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
   openSidebar: () => set({ isSidebarOpen: true }),
-  sidebarWidth: "240px",
+  sidebarWidth: '240px',
   closeSidebar: () => set({ isSidebarOpen: false }),
   setSidebarWidth: (width) => {
-    document.documentElement.style.setProperty("--sidebar-width", width);
+    document.documentElement.style.setProperty('--sidebar-width', width);
     set({ sidebarWidth: width });
-  },
+  }
 }));

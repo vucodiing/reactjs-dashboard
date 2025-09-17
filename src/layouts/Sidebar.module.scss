@@ -15,16 +15,20 @@
     display: grid;
     place-content: center;
   }
-  &__level2 a{
+  &__level2 a {
     padding-left: 50px !important;
   }
   &__open {
-    span, svg[data-testid="ExpandLessIcon"], svg[data-testid="ExpandMoreIcon"] {
+    span,
+    svg[data-testid="ExpandLessIcon"],
+    svg[data-testid="ExpandMoreIcon"] {
       visibility: visible;
     }
   }
-   &__close {
-    span, svg[data-testid="ExpandLessIcon"], svg[data-testid="ExpandMoreIcon"] {
+  &__close {
+    span,
+    svg[data-testid="ExpandLessIcon"],
+    svg[data-testid="ExpandMoreIcon"] {
       visibility: hidden;
     }
   }
