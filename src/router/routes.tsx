@@ -20,8 +20,8 @@ const routes: IRoute[] = [
         element: Dashboard,
         protected: true,
         meta: {
-          allowRoles: ['Admin', 'User']
-        }
+          allowRoles: ['Admin', 'User'],
+        },
       },
       {
         path: 'users',
@@ -34,8 +34,8 @@ const routes: IRoute[] = [
             name: 'User List',
             protected: true,
             meta: {
-              allowRoles: ['User']
-            }
+              allowRoles: ['User'],
+            },
           },
           {
             path: 'add',
@@ -43,35 +43,35 @@ const routes: IRoute[] = [
             name: 'User Add',
             protected: true,
             meta: {
-              allowRoles: ['User']
-            }
-          }
-        ]
+              allowRoles: ['User'],
+            },
+          },
+        ],
       },
       {
         path: 'map',
         name: 'Map',
         element: MapBox,
-        icon: Map
-      }
-    ]
+        icon: Map,
+      },
+    ],
   },
   {
     path: '/login',
-    element: React.lazy(() => import('../auth/login'))
+    element: React.lazy(() => import('../auth/login')),
   },
   {
     path: '/change-password',
-    element: React.lazy(() => import('../auth/changePassword'))
+    element: React.lazy(() => import('../auth/changePassword')),
   },
   {
     path: '/403',
-    element: React.lazy(() => import('../pages/Forbidden/Forbidden'))
+    element: React.lazy(() => import('../pages/Forbidden/Forbidden')),
   },
   {
     path: '*',
-    element: React.lazy(() => import('../pages/NotFound/NotFound'))
-  }
+    element: React.lazy(() => import('../pages/NotFound/NotFound')),
+  },
 ];
 
 export default routes;

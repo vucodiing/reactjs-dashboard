@@ -23,5 +23,5 @@ export const useSettingStore = create<SettingState>((set) => ({
   setSidebarWidth: (width) => {
     document.documentElement.style.setProperty('--sidebar-width', width);
     set({ sidebarWidth: width });
-  }
+  },
 }));

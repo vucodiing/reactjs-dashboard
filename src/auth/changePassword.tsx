@@ -23,12 +23,17 @@ export default function Login() {
     const newErrors: typeof errors = {};
     if (!oldPassword.trim()) newErrors.oldPassword = '⚠️ Please input old password';
     if (!newPassword.trim()) newErrors.newPassword = '⚠️ Please input new password';
-    if (!confirmPassword.trim() || confirmPassword.trim() !== newPassword.trim()) newErrors.confirmPassword = '⚠️ Password not match';
+    if (!confirmPassword.trim() || confirmPassword.trim() !== newPassword.trim())
+      newErrors.confirmPassword = '⚠️ Password not match';
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
     try {
-      const response = await mushroom.$auth.changePasswordAsync(infoUser?.account as string, oldPassword, newPassword);
+      const response = await mushroom.$auth.changePasswordAsync(
+        infoUser?.account as string,
+        oldPassword,
+        newPassword
+      );
 
       if (response.result?.id) navigate('/login', { replace: true });
     } catch {
@@ -41,7 +46,13 @@ export default function Login() {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#f5f5f5">
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      bgcolor="#f5f5f5"
+    >
       <Paper elevation={3} sx={{ p: 4, width: 350 }}>
         <Typography variant="h5" component="h1" gutterBottom align="center">
           CHANGE PASSWORD

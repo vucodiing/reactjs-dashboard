@@ -60,7 +60,7 @@ export default function Login() {
         name: 'Vu Coding',
         email: 'vu@example.com',
         phone: '0123456789',
-        roles: responseAuth.result?.roles || ['Admin']
+        roles: responseAuth.result?.roles || ['Admin'],
       });
       if (responseAuth.result.roles) {
         localStorage.setItem('roles', JSON.stringify(responseAuth.result.roles));
@@ -92,7 +92,13 @@ export default function Login() {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#f5f5f5">
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      bgcolor="#f5f5f5"
+    >
       <Paper elevation={3} sx={{ p: 4, width: 350 }}>
         <Typography variant="h5" component="h1" gutterBottom align="center">
           LOGIN

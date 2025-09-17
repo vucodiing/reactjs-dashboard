@@ -1,5 +1,5 @@
-import { create } from "zustand";
-type AlertType = "success" | "error" | "warning" | "info";
+import { create } from 'zustand';
+type AlertType = 'success' | 'error' | 'warning' | 'info';
 interface AlertStage {
   open: boolean;
   message: string;
@@ -11,10 +11,10 @@ interface AlertStage {
 }
 export const useAlertStore = create<AlertStage>((set) => ({
   open: false,
-  message: "",
-  severity: "info",
+  message: '',
+  severity: 'info',
   close: () => set({ open: false }),
-  alertSuccess: (message) => set({ open: true, message, severity: "success" }),
-  alertError: (message) => set({ open: true, message, severity: "error" }),
-  alertWarning: (message) => set({ open: true, message, severity: "warning" }),
+  alertSuccess: (message) => set({ open: true, message, severity: 'success' }),
+  alertError: (message) => set({ open: true, message, severity: 'error' }),
+  alertWarning: (message) => set({ open: true, message, severity: 'warning' }),
 }));

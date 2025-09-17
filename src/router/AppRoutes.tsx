@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import routes from "./routes";
-import wrapProtectedRoutes from "./wrapProtectedRoutes";
-import type { IRoute } from "./type";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import routes from './routes';
+import wrapProtectedRoutes from './wrapProtectedRoutes';
+import type { IRoute } from './type';
 
 export default function AppRoutes() {
   const wrappedRoutes: IRoute[] = wrapProtectedRoutes(routes);
@@ -12,11 +12,7 @@ export default function AppRoutes() {
 
       if (route.children) {
         return (
-          <Route
-            key={index}
-            path={route.path}
-            element={Element ? <Element /> : undefined}
-          >
+          <Route key={index} path={route.path} element={Element ? <Element /> : undefined}>
             {renderRoutes(route.children)}
           </Route>
         );

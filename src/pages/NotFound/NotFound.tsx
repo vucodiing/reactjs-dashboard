@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import { Home } from "@mui/icons-material";
-import { Button } from "@mui/material";
-import styles from "./NotFound.module.scss";
+import { useNavigate } from 'react-router-dom';
+import { Home } from '@mui/icons-material';
+import { Button } from '@mui/material';
+import styles from './NotFound.module.scss';
 export default function NotFound() {
   const navigate = useNavigate();
   return (
@@ -11,7 +11,7 @@ export default function NotFound() {
       <Button
         variant="contained"
         startIcon={<Home />}
-        onClick={() => navigate("/", { replace: true })}
+        onClick={() => navigate('/', { replace: true })}
       >
         HOME
       </Button>

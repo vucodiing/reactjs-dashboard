@@ -20,15 +20,15 @@
   }
   &__open {
     span,
-    svg[data-testid="ExpandLessIcon"],
-    svg[data-testid="ExpandMoreIcon"] {
+    svg[data-testid='ExpandLessIcon'],
+    svg[data-testid='ExpandMoreIcon'] {
       visibility: visible;
     }
   }
   &__close {
     span,
-    svg[data-testid="ExpandLessIcon"],
-    svg[data-testid="ExpandMoreIcon"] {
+    svg[data-testid='ExpandLessIcon'],
+    svg[data-testid='ExpandMoreIcon'] {
       visibility: hidden;
     }
   }

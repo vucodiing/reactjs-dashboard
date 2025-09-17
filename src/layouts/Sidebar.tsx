@@ -20,7 +20,9 @@ export default function SidebarMenu() {
 
     routes[0].children?.forEach((item) => {
       if (item.children) {
-        const isMatch = item.children.some((child) => location.pathname.startsWith(`/${item.path}/${child.path}`));
+        const isMatch = item.children.some((child) =>
+          location.pathname.startsWith(`/${item.path}/${child.path}`)
+        );
         if (isMatch) {
           matchedParent = item.name!;
         }
@@ -31,7 +33,10 @@ export default function SidebarMenu() {
   }, [location.pathname]);
 
   return (
-    <div className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebar__open : styles.sidebar__close}`} style={{ width: 'var(--sidebar-width)' }}>
+    <div
+      className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebar__open : styles.sidebar__close}`}
+      style={{ width: 'var(--sidebar-width)' }}
+    >
       <div className={styles.sidebar__logo}>ADMIN</div>
       <MenuList>
         {routes[0].children?.map((item) => {
@@ -48,7 +53,12 @@ export default function SidebarMenu() {
                   <ListItemText primary={item.name} />
                   {open === item.name ? <ExpandLess className="" /> : <ExpandMore />}
                 </MenuItem>
-                <Collapse in={open === item.name && isSidebarOpen} timeout="auto" unmountOnExit className={styles.sidebar__level2}>
+                <Collapse
+                  in={open === item.name && isSidebarOpen}
+                  timeout="auto"
+                  unmountOnExit
+                  className={styles.sidebar__level2}
+                >
                   <MenuList>
                     {item.children.map((child) => (
                       <MenuItem
@@ -60,8 +70,8 @@ export default function SidebarMenu() {
                             backgroundColor: 'var(--sidebar-active-bg)',
                             color: 'var(--sidebar-active-color)',
                             fontWeight: 'bold',
-                            svg: { color: 'var(--sidebar-active-color)' }
-                          }
+                            svg: { color: 'var(--sidebar-active-color)' },
+                          },
                         }}
                       >
                         <ListItemText primary={child.name} />
@@ -82,8 +92,8 @@ export default function SidebarMenu() {
                   backgroundColor: 'var(--sidebar-active-bg)',
                   color: 'var(--sidebar-active-color)',
                   fontWeight: 'bold',
-                  svg: { color: 'var(--sidebar-active-color)' }
-                }
+                  svg: { color: 'var(--sidebar-active-color)' },
+                },
               }}
             >
               {Icon && (
