@@ -53,18 +53,16 @@ export default function Login() {
     try {
       const responseLogin = await mushroom.$auth.loginAsync(username, password);
       const responseAuth = await mushroom.$auth.meAsync();
-      setUser({
-        account: responseAuth.result?.account,
-        name: 'Vu Coding',
-        email: 'vu@example.com',
-        phone: '0123456789',
-        roles: responseAuth.result?.roles || ['Admin'],
-        token: responseLogin.result.token,
-        avatarSrc:
-          'https://timwook.com/api/v2/file/thumb?id=6602817f71c39b0c049f117a&r=square&w=200',
-      });
+      if (responseAuth.result)
+        setUser({
+          account: responseAuth.result.account,
+          name: 'Vu Codiing',
+          roles: responseAuth.result.roles || ['Admin'],
+          avatarSrc:
+            'https://timwook.com/api/v2/file/thumb?id=6602817f71c39b0c049f117a&r=square&w=200',
+        });
 
-      if (responseLogin.result.token) navigate(from, { replace: true });
+      if (responseLogin.result?.token) navigate(from, { replace: true });
     } catch (e) {
       const { code, meta, message } = e as MushroomError;
       if (code === 37001 || meta?.locked) {
@@ -81,7 +79,6 @@ export default function Login() {
         }
       } else if (code === 37000 && !meta?.locked) {
         setTimeRemaining(null);
-
         enqueueSnackbar(`Invalid username or password. ${meta?.remainingCount} attempts left.`, {
           variant: 'error',
         });
@@ -103,7 +100,7 @@ export default function Login() {
       minHeight="100vh"
       bgcolor="#f5f5f5"
     >
-      <Paper elevation={3} sx={{ p: 4, width: 350 }}>
+      <Paper elevation={3} sx={{ p: 4, width: 400 }}>
         <Typography variant="h5" component="h1" gutterBottom align="center">
           LOGIN
         </Typography>

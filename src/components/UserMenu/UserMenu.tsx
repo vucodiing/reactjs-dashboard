@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '@/store/userStore';
 export default function BasicMenu() {
   const navigate = useNavigate();
-  const { avatarSrc, clearUser } = useUserStore();
+  const { avatarSrc } = useUserStore();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [showDialogConfirmLogout, setShowDialogConfirmLogout] = React.useState<boolean>(false);
   const open = Boolean(anchorEl);
@@ -30,7 +30,6 @@ export default function BasicMenu() {
   };
   const handleLogout = () => {
     mushroom.$auth.logoutAsync({ mode: LogoutMode.InvalidClientSession });
-    clearUser();
     navigate('/login', { replace: true });
   };
 
