@@ -13,7 +13,8 @@ export default {
         'docs',     // tài liệu
         'test',     // test
         'init',     // khởi tạo dự án
-        'add'
+        'add',
+        'fix'
       ]
     ],
   },

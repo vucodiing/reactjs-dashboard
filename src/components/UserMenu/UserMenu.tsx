@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '@/store/userStore';
 export default function BasicMenu() {
   const navigate = useNavigate();
-  const { clearUser } = useUserStore();
+  const { avatarSrc, clearUser } = useUserStore();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [showDialogConfirmLogout, setShowDialogConfirmLogout] = React.useState<boolean>(false);
   const open = Boolean(anchorEl);
@@ -37,10 +37,7 @@ export default function BasicMenu() {
   return (
     <div>
       <IconButton onClick={handleClick} sx={{ p: 0 }}>
-        <Avatar
-          alt="VuCodiing"
-          src="https://timwook.com/api/v2/file/thumb?id=6602817f71c39b0c049f117a&r=square&w=200"
-        />
+        <Avatar alt="VuCodiing" src={avatarSrc} />
       </IconButton>
       <Menu
         id="basic-menu"

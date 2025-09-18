@@ -1,12 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 interface UserInfo {
-  name: string;
+  name?: string;
   account: string;
-  email: string;
-  phone: string;
+  email?: string;
+  phone?: string;
   roles: string[];
   token: string;
+  avatarSrc?: string;
 }
 
 interface UserState extends UserInfo {
@@ -25,6 +26,7 @@ export const useUserStore = create<UserState>()(
       phone: '',
       roles: [],
       token: '',
+      avatarSrc: '',
 
       setUser: (info) => {
         set(info);

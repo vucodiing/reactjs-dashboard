@@ -60,6 +60,8 @@ export default function Login() {
         phone: '0123456789',
         roles: responseAuth.result?.roles || ['Admin'],
         token: responseLogin.result.token,
+        avatarSrc:
+          'https://timwook.com/api/v2/file/thumb?id=6602817f71c39b0c049f117a&r=square&w=200',
       });
 
       if (responseLogin.result.token) navigate(from, { replace: true });
