@@ -30,7 +30,6 @@ export default function BasicMenu() {
   };
   const handleLogout = () => {
     mushroom.$auth.logoutAsync({ mode: LogoutMode.InvalidClientSession });
-    localStorage.clear();
     clearUser();
     navigate('/login', { replace: true });
   };

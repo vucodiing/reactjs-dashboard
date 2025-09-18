@@ -59,6 +59,7 @@ export default function Login() {
         email: 'vu@example.com',
         phone: '0123456789',
         roles: responseAuth.result?.roles || ['Admin'],
+        token: responseLogin.result.token,
       });
 
       if (responseLogin.result.token) navigate(from, { replace: true });

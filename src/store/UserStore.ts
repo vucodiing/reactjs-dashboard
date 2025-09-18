@@ -6,6 +6,7 @@ interface UserInfo {
   email: string;
   phone: string;
   roles: string[];
+  token: string;
 }
 
 interface UserState extends UserInfo {
@@ -13,7 +14,6 @@ interface UserState extends UserInfo {
   clearUser: () => void;
 }
 
-// tạo channel global
 const authChannel = new BroadcastChannel('auth');
 
 export const useUserStore = create<UserState>()(
@@ -24,17 +24,15 @@ export const useUserStore = create<UserState>()(
       email: '',
       phone: '',
       roles: [],
+      token: '',
 
       setUser: (info) => {
         set(info);
       },
 
       clearUser: () => {
-        // clear local state
-        set({ name: '', account: '', email: '', phone: '', roles: [] });
-        // phát sự kiện để các tab khác biết
+        localStorage.clear();
         authChannel.postMessage({ type: 'LOGOUT' });
-        window.location.href = '/login';
       },
     }),
     {
@@ -46,13 +44,7 @@ export const useUserStore = create<UserState>()(
 // lắng nghe thông điệp từ tab khác
 authChannel.onmessage = (event) => {
   if (event.data?.type === 'LOGOUT') {
-    // gọi clearUser nhưng KHÔNG phát thêm broadcast nữa
-    useUserStore.setState({
-      name: '',
-      account: '',
-      email: '',
-      phone: '',
-      roles: [],
-    });
+    localStorage.clear();
+    window.location.href = '/login';
   }
 };

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import routes from './routes';
 import type { IRoute } from './type';
+import ProtectedRoute from './ProtectedRoute';
 
 export default function AppRoutes() {
   const renderRoutes = (routesArr: IRoute[]) =>
@@ -9,7 +10,21 @@ export default function AppRoutes() {
 
       if (route.children) {
         return (
-          <Route key={index} path={route.path} element={Element ? <Element /> : undefined}>
+          <Route
+            key={index}
+            path={route.path}
+            element={
+              Element ? (
+                route.protected ? (
+                  <ProtectedRoute allowRoles={route.allowRoles}>
+                    <Element />
+                  </ProtectedRoute>
+                ) : (
+                  <Element />
+                )
+              ) : undefined
+            }
+          >
             {renderRoutes(route.children)}
           </Route>
         );
@@ -20,7 +35,17 @@ export default function AppRoutes() {
           key={index}
           path={route.path}
           index={route.index}
-          element={Element ? <Element /> : undefined}
+          element={
+            Element ? (
+              route.protected ? (
+                <ProtectedRoute allowRoles={route.allowRoles}>
+                  <Element />
+                </ProtectedRoute>
+              ) : (
+                <Element />
+              )
+            ) : undefined
+          }
         />
       );
     });
