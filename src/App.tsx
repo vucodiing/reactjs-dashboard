@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import AppRoutes from './router/AppRoutes';
 import { userStore } from './store/UserStore';
-import AlertGlobal from './components/AlertGlobal/AlertGlobal';
+import { SnackbarProvider } from 'notistack';
 export default function App() {
   const { setUserInfo } = userStore();
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function App() {
   return (
     <>
       <AppRoutes />
-      <AlertGlobal />
+      <SnackbarProvider autoHideDuration={2000} preventDuplicate />
     </>
   );
 }
