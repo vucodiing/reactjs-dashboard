@@ -7,9 +7,11 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { filterRoutesByRole } from '@/utils/routerUtils';
 import routes from '../../router/routes';
+import SidebarSkeleton from './SidebarSkeleton';
 import styles from './Sidebar.module.scss';
 export default function SidebarMenu() {
   const { isSidebarOpen } = useSettingStore();
+  const { loading } = useUserStore();
   const rolesStore = useUserStore((s) => s.roles);
   const allowedRoutes = filterRoutesByRole(routes, rolesStore);
   const location = useLocation();
@@ -42,74 +44,78 @@ export default function SidebarMenu() {
       style={{ width: 'var(--sidebar-width)' }}
     >
       <div className={styles.sidebar__logo}>ADMIN</div>
-      <MenuList>
-        {allowedRoutes[0].children?.map((item) => {
-          const Icon = item.icon;
-          if (item.children) {
+      {loading ? (
+        <SidebarSkeleton />
+      ) : (
+        <MenuList>
+          {allowedRoutes[0].children?.map((item) => {
+            const Icon = item.icon;
+            if (item.children) {
+              return (
+                <div key={item.name}>
+                  <MenuItem onClick={() => handleToggle(item.name!)}>
+                    {Icon && (
+                      <ListItemIcon>
+                        <Icon fontSize="small" />
+                      </ListItemIcon>
+                    )}
+                    <ListItemText primary={item.name} />
+                    {open === item.name ? <ExpandLess className="" /> : <ExpandMore />}
+                  </MenuItem>
+                  <Collapse
+                    in={open === item.name && isSidebarOpen}
+                    timeout="auto"
+                    unmountOnExit
+                    className={styles.sidebar__level2}
+                  >
+                    <MenuList>
+                      {item.children.map((child) => (
+                        <MenuItem
+                          key={child.name}
+                          component={NavLink}
+                          to={`/${item.path}/${child.path}`}
+                          sx={{
+                            '&.active': {
+                              backgroundColor: 'var(--sidebar-active-bg)',
+                              color: 'var(--sidebar-active-color)',
+                              fontWeight: 'bold',
+                              svg: { color: 'var(--sidebar-active-color)' },
+                            },
+                          }}
+                        >
+                          <ListItemText primary={child.name} />
+                        </MenuItem>
+                      ))}
+                    </MenuList>
+                  </Collapse>
+                </div>
+              );
+            }
             return (
-              <div key={item.name}>
-                <MenuItem onClick={() => handleToggle(item.name!)}>
-                  {Icon && (
-                    <ListItemIcon>
-                      <Icon fontSize="small" />
-                    </ListItemIcon>
-                  )}
-                  <ListItemText primary={item.name} />
-                  {open === item.name ? <ExpandLess className="" /> : <ExpandMore />}
-                </MenuItem>
-                <Collapse
-                  in={open === item.name && isSidebarOpen}
-                  timeout="auto"
-                  unmountOnExit
-                  className={styles.sidebar__level2}
-                >
-                  <MenuList>
-                    {item.children.map((child) => (
-                      <MenuItem
-                        key={child.name}
-                        component={NavLink}
-                        to={`/${item.path}/${child.path}`}
-                        sx={{
-                          '&.active': {
-                            backgroundColor: 'var(--sidebar-active-bg)',
-                            color: 'var(--sidebar-active-color)',
-                            fontWeight: 'bold',
-                            svg: { color: 'var(--sidebar-active-color)' },
-                          },
-                        }}
-                      >
-                        <ListItemText primary={child.name} />
-                      </MenuItem>
-                    ))}
-                  </MenuList>
-                </Collapse>
-              </div>
+              <MenuItem
+                key={item.name}
+                component={NavLink}
+                to={item.path || ''}
+                sx={{
+                  '&.active': {
+                    backgroundColor: 'var(--sidebar-active-bg)',
+                    color: 'var(--sidebar-active-color)',
+                    fontWeight: 'bold',
+                    svg: { color: 'var(--sidebar-active-color)' },
+                  },
+                }}
+              >
+                {Icon && (
+                  <ListItemIcon>
+                    <Icon fontSize="small" />
+                  </ListItemIcon>
+                )}
+                <ListItemText primary={item.name} />
+              </MenuItem>
             );
-          }
-          return (
-            <MenuItem
-              key={item.name}
-              component={NavLink}
-              to={item.path || ''}
-              sx={{
-                '&.active': {
-                  backgroundColor: 'var(--sidebar-active-bg)',
-                  color: 'var(--sidebar-active-color)',
-                  fontWeight: 'bold',
-                  svg: { color: 'var(--sidebar-active-color)' },
-                },
-              }}
-            >
-              {Icon && (
-                <ListItemIcon>
-                  <Icon fontSize="small" />
-                </ListItemIcon>
-              )}
-              <ListItemText primary={item.name} />
-            </MenuItem>
-          );
-        })}
-      </MenuList>
+          })}
+        </MenuList>
+      )}
     </div>
   );
 }

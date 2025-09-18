@@ -1,9 +1,4 @@
 import * as React from 'react';
-import mushroom from '../../service/api/mushroom-api';
-import { LogoutMode } from 'mushroomjs-auth';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 import {
   Dialog,
@@ -12,13 +7,16 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  IconButton,
+  MenuItem,
+  Menu,
 } from '@mui/material';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { useNavigate } from 'react-router-dom';
 import { useUserStore } from '@/store/userStore';
 export default function BasicMenu() {
   const navigate = useNavigate();
-  const { avatarSrc } = useUserStore();
+  const { avatarSrc, logout } = useUserStore();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [showDialogConfirmLogout, setShowDialogConfirmLogout] = React.useState<boolean>(false);
   const open = Boolean(anchorEl);
@@ -28,8 +26,8 @@ export default function BasicMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleLogout = () => {
-    mushroom.$auth.logoutAsync({ mode: LogoutMode.InvalidClientSession });
+  const handleLogout = async () => {
+    await logout();
     navigate('/login', { replace: true });
   };
 

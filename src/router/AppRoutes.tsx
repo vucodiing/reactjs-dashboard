@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// AppRoutes.tsx
+import { Routes, Route } from 'react-router-dom';
 import routes from './routes';
 import type { IRoute } from './type';
 import ProtectedRoute from './ProtectedRoute';
@@ -6,53 +7,28 @@ import ProtectedRoute from './ProtectedRoute';
 export default function AppRoutes() {
   const renderRoutes = (routesArr: IRoute[]) =>
     routesArr.map((route, index) => {
-      const Element = route.element;
+      const Element = route.element ? <route.element /> : null;
 
-      if (route.children) {
+      if (route.protected) {
         return (
           <Route
             key={index}
             path={route.path}
-            element={
-              Element ? (
-                route.protected ? (
-                  <ProtectedRoute allowRoles={route.allowRoles}>
-                    <Element />
-                  </ProtectedRoute>
-                ) : (
-                  <Element />
-                )
-              ) : undefined
-            }
+            element={<ProtectedRoute allowRoles={route.allowRoles} />}
           >
-            {renderRoutes(route.children)}
+            {route.children
+              ? renderRoutes(route.children)
+              : route.element && <Route index element={Element} />}
           </Route>
         );
       }
 
       return (
-        <Route
-          key={index}
-          path={route.path}
-          index={route.index}
-          element={
-            Element ? (
-              route.protected ? (
-                <ProtectedRoute allowRoles={route.allowRoles}>
-                  <Element />
-                </ProtectedRoute>
-              ) : (
-                <Element />
-              )
-            ) : undefined
-          }
-        />
+        <Route key={index} path={route.path} element={Element}>
+          {route.children && renderRoutes(route.children)}
+        </Route>
       );
     });
 
-  return (
-    <BrowserRouter>
-      <Routes>{renderRoutes(routes)}</Routes>
-    </BrowserRouter>
-  );
+  return <Routes>{renderRoutes(routes)}</Routes>;
 }
