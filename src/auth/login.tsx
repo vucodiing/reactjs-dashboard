@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, TextField, Typography, Paper } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { userStore } from '../store/UserStore';
-import { useAlertStore } from '../store/alertStore';
+import { useUserStore } from '@/store/userStore';
 import mushroom from '../service/api/mushroom-api';
 import type { MushroomError } from '../service/api/mushroom-api';
-
+import { enqueueSnackbar } from 'notistack';
 export default function Login() {
-  const { alertError } = useAlertStore();
   const navigate = useNavigate();
   const location = useLocation();
   const [username, setUsername] = useState('');
@@ -19,7 +17,7 @@ export default function Login() {
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
 
   const from = location.state?.from?.pathname || '/';
-  const { setUserInfo } = userStore();
+  const { setUser } = useUserStore();
 
   useEffect(() => {
     if (timeRemaining === null) return;
@@ -41,7 +39,7 @@ export default function Login() {
     const totalSeconds = Math.floor(ms / 1000);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
-    return `${minutes < 10 ? '0' + minutes : minutes} phút ${seconds < 10 ? '0' + seconds : seconds} giây`;
+    return `${minutes < 10 ? '0' + minutes : minutes} minutes ${seconds < 10 ? '0' + seconds : seconds} seconds`;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -55,16 +53,14 @@ export default function Login() {
     try {
       const responseLogin = await mushroom.$auth.loginAsync(username, password);
       const responseAuth = await mushroom.$auth.meAsync();
-      setUserInfo({
+      setUser({
         account: responseAuth.result?.account,
         name: 'Vu Coding',
         email: 'vu@example.com',
         phone: '0123456789',
         roles: responseAuth.result?.roles || ['Admin'],
       });
-      if (responseAuth.result.roles) {
-        localStorage.setItem('roles', JSON.stringify(responseAuth.result.roles));
-      }
+
       if (responseLogin.result.token) navigate(from, { replace: true });
     } catch (e) {
       const { code, meta, message } = e as MushroomError;
@@ -75,14 +71,19 @@ export default function Login() {
 
         if (diff > 0) {
           setTimeRemaining(diff);
-          alertError(`Account locked. It will automatically unlock after ${formatTime(diff)}`);
+          enqueueSnackbar(
+            `Account locked. It will automatically unlock after ${formatTime(diff)}`,
+            { variant: 'error' }
+          );
         }
       } else if (code === 37000 && !meta?.locked) {
         setTimeRemaining(null);
 
-        alertError(`Invalid username or password. ${meta?.remainingCount} attempts left.`);
+        enqueueSnackbar(`Invalid username or password. ${meta?.remainingCount} attempts left.`, {
+          variant: 'error',
+        });
       } else {
-        alertError(message);
+        enqueueSnackbar(message, { variant: 'error' });
       }
     }
   };

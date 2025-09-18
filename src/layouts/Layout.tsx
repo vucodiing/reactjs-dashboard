@@ -1,4 +1,4 @@
-import Sidebar from './Sidebar';
+import Sidebar from './Sidebar/Sidebar';
 import Navbar from './Navbar';
 import { Outlet } from 'react-router-dom';
 import styles from './Layout.module.scss';

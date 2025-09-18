@@ -7,6 +7,7 @@ export interface IRoute {
   protected?: boolean;
   icon?: SvgIconComponent;
   children?: IRoute[];
+  allowRoles?: string[];
   meta?: {
     [key: string]: string | number | boolean | string[];
   };

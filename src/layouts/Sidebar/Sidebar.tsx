@@ -1,13 +1,17 @@
 import { MenuList, MenuItem, ListItemText, Collapse, ListItemIcon } from '@mui/material';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useSettingStore } from '../store/useSettingStore';
+import { useSettingStore } from '../../store/useSettingStore';
+import { useUserStore } from '@/store/userStore';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import routes from '../router/routes';
+import { filterRoutesByRole } from '@/utils/routerUtils';
+import routes from '../../router/routes';
 import styles from './Sidebar.module.scss';
 export default function SidebarMenu() {
   const { isSidebarOpen } = useSettingStore();
+  const rolesStore = useUserStore((s) => s.roles);
+  const allowedRoutes = filterRoutesByRole(routes, rolesStore);
   const location = useLocation();
   const [open, setOpen] = useState<string | null>(null);
 
@@ -39,7 +43,7 @@ export default function SidebarMenu() {
     >
       <div className={styles.sidebar__logo}>ADMIN</div>
       <MenuList>
-        {routes[0].children?.map((item) => {
+        {allowedRoutes[0].children?.map((item) => {
           const Icon = item.icon;
           if (item.children) {
             return (

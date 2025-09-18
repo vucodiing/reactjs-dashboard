@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { userStore } from '../store/UserStore';
+import { userStore } from '../store/userStore';
 import { useAlertStore } from '../store/alertStore';
 import mushroom from '../service/api/mushroom-api';
 export default function Login() {

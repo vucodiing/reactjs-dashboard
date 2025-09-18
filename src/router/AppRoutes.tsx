@@ -1,11 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import routes from './routes';
-import wrapProtectedRoutes from './wrapProtectedRoutes';
 import type { IRoute } from './type';
 
 export default function AppRoutes() {
-  const wrappedRoutes: IRoute[] = wrapProtectedRoutes(routes);
-
   const renderRoutes = (routesArr: IRoute[]) =>
     routesArr.map((route, index) => {
       const Element = route.element;
@@ -30,7 +27,7 @@ export default function AppRoutes() {
 
   return (
     <BrowserRouter>
-      <Routes>{renderRoutes(wrappedRoutes)}</Routes>
+      <Routes>{renderRoutes(routes)}</Routes>
     </BrowserRouter>
   );
 }

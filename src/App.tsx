@@ -1,21 +1,17 @@
-import { useEffect } from 'react';
 import AppRoutes from './router/AppRoutes';
-import { userStore } from './store/UserStore';
 import { SnackbarProvider } from 'notistack';
 export default function App() {
-  const { setUserInfo } = userStore();
-  useEffect(() => {
-    setUserInfo({
-      name: 'Vu Coding',
-      email: 'vu@example.com',
-      phone: '0123456789',
-      roles: ['Admin'],
-    });
-  }, [setUserInfo]);
   return (
     <>
       <AppRoutes />
-      <SnackbarProvider autoHideDuration={2000} preventDuplicate />
+      <SnackbarProvider
+        autoHideDuration={3000}
+        preventDuplicate
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      />
     </>
   );
 }

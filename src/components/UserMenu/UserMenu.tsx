@@ -15,8 +15,10 @@ import {
 } from '@mui/material';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '@/store/userStore';
 export default function BasicMenu() {
   const navigate = useNavigate();
+  const { clearUser } = useUserStore();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [showDialogConfirmLogout, setShowDialogConfirmLogout] = React.useState<boolean>(false);
   const open = Boolean(anchorEl);
@@ -26,9 +28,10 @@ export default function BasicMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleLogout = async () => {
-    await mushroom.$auth.logoutAsync({ mode: LogoutMode.InvalidClientSession });
+  const handleLogout = () => {
+    mushroom.$auth.logoutAsync({ mode: LogoutMode.InvalidClientSession });
     localStorage.clear();
+    clearUser();
     navigate('/login', { replace: true });
   };
 

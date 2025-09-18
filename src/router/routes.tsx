@@ -16,10 +16,7 @@ const routes: IRoute[] = [
         icon: DashboardOutlined,
         index: true,
         element: Dashboard,
-        protected: true,
-        meta: {
-          allowRoles: ['Admin', 'User'],
-        },
+        allowRoles: ['Admin', 'User'],
       },
       {
         path: 'users',
@@ -30,19 +27,13 @@ const routes: IRoute[] = [
             path: 'list',
             element: UserList,
             name: 'User List',
-            protected: true,
-            meta: {
-              allowRoles: ['User'],
-            },
+            allowRoles: ['User'],
           },
           {
             path: 'add',
             element: UserAdd,
             name: 'User Add',
-            protected: true,
-            meta: {
-              allowRoles: ['User'],
-            },
+            allowRoles: ['User'],
           },
         ],
       },
@@ -50,11 +41,8 @@ const routes: IRoute[] = [
         path: 'map',
         name: 'Map',
         element: MapBox,
-        protected: true,
         icon: MapOutlined,
-        meta: {
-          allowRoles: ['User'],
-        },
+        allowRoles: ['tEST'],
       },
     ],
   },
