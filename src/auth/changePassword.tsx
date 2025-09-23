@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { userStore } from '../store/userStore';
+import { useUserStore } from '../store/userStore';
 import { useAlertStore } from '../store/alertStore';
 import mushroom from '../service/api/mushroom-api';
 export default function Login() {
@@ -16,7 +16,7 @@ export default function Login() {
     confirmPassword?: string;
   }>({});
 
-  const { infoUser } = userStore();
+  const { account } = useUserStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,11 +29,7 @@ export default function Login() {
     if (Object.keys(newErrors).length > 0) return;
 
     try {
-      const response = await mushroom.$auth.changePasswordAsync(
-        infoUser?.account as string,
-        oldPassword,
-        newPassword
-      );
+      const response = await mushroom.$auth.changePasswordAsync(account, oldPassword, newPassword);
 
       if (response.result?.id) navigate('/login', { replace: true });
     } catch {
