@@ -33,7 +33,6 @@ export default function App() {
       } catch {
         navigate('/login', { replace: true });
       } finally {
-        // ✅ Quan trọng: luôn tắt loading khi check xong
         setLoading(false);
       }
     };

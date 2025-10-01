@@ -12,7 +12,11 @@ const ProtectedRoute: React.FC<{ allowRoles?: string[]; children?: React.ReactNo
   const { roles, loading } = useUserStore();
   const isHasToken = Boolean(localStorage.getItem(`mushroom.tokens[${mushroom.$using()}]`));
   if (loading) {
-    return <Loading />;
+    return (
+      <div style={{ display: 'grid', placeContent: 'center', height: '100vh' }}>
+        <Loading />
+      </div>
+    );
   }
 
   if (!isHasToken) {
