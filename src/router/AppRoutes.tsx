@@ -14,11 +14,9 @@ export default function AppRoutes() {
           <Route
             key={index}
             path={route.path}
-            element={<ProtectedRoute allowRoles={route.allowRoles} />}
+            element={<ProtectedRoute allowRoles={route.allowRoles}>{Element}</ProtectedRoute>}
           >
-            {route.children
-              ? renderRoutes(route.children)
-              : route.element && <Route index element={Element} />}
+            {route.children && renderRoutes(route.children)}
           </Route>
         );
       }
