@@ -1,11 +1,17 @@
 import { useEffect } from 'react';
 import AppRoutes from './router/AppRoutes';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
 import { useUserStore } from '@/store/userStore';
 import { useNavigate } from 'react-router-dom';
 import mushroom from './service/api/mushroom-api';
 
 export default function App() {
+  const theme = createTheme({
+    typography: {
+      fontFamily: 'var(--font-family-base)',
+    },
+  });
   const { setUser, setLoading } = useUserStore();
   const navigate = useNavigate();
 
@@ -36,7 +42,7 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <AppRoutes />
       <SnackbarProvider
         autoHideDuration={3000}
@@ -46,6 +52,6 @@ export default function App() {
           horizontal: 'right',
         }}
       />
-    </>
+    </ThemeProvider>
   );
 }
