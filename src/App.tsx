@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import AppRoutes from './router/AppRoutes';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { SnackbarProvider } from 'notistack';
 import { useUserStore } from '@/store/userStore';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import mushroom from './service/api/mushroom-api';
 
 export default function App() {
@@ -43,14 +43,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <AppRoutes />
-      <SnackbarProvider
-        autoHideDuration={3000}
-        preventDuplicate
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-      />
+      <ToastContainer autoClose={3000} theme="colored" />
     </ThemeProvider>
   );
 }

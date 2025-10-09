@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useUserStore } from '@/store/userStore';
 import mushroom from '../service/api/mushroom-api';
 import type { MushroomError } from '../service/api/mushroom-api';
-import { enqueueSnackbar } from 'notistack';
+import { toast } from 'react-toastify';
 export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -72,18 +72,13 @@ export default function Login() {
 
         if (diff > 0) {
           setTimeRemaining(diff);
-          enqueueSnackbar(
-            `Account locked. It will automatically unlock after ${formatTime(diff)}`,
-            { variant: 'error' }
-          );
+          toast.error(`Account locked. It will automatically unlock after ${formatTime(diff)}`);
         }
       } else if (code === 37000 && !meta?.locked) {
         setTimeRemaining(null);
-        enqueueSnackbar(`Invalid username or password. ${meta?.remainingCount} attempts left.`, {
-          variant: 'error',
-        });
+        toast.error(`Invalid username or password. ${meta?.remainingCount} attempts left.`);
       } else {
-        enqueueSnackbar(message, { variant: 'error' });
+        toast.error(message);
       }
     }
   };
@@ -109,6 +104,7 @@ export default function Login() {
           <TextField
             label="Account"
             fullWidth
+            required
             margin="normal"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -121,6 +117,7 @@ export default function Login() {
             label="Password"
             type="password"
             fullWidth
+            required
             margin="normal"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

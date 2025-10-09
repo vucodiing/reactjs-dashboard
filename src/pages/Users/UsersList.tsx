@@ -3,10 +3,10 @@ import mushroom from '@/service/api/mushroom-api';
 import type { MushroomError, Service } from '@/service/api/mushroom-api';
 import Loading from '@/components/Loading/Loading';
 import { useEffect } from 'react';
-import { enqueueSnackbar } from 'notistack';
 import Paper from '@mui/material/Paper';
 import { DataGrid } from '@mui/x-data-grid';
 import type { GridColDef } from '@mui/x-data-grid';
+import { toast } from 'react-toastify';
 export default function UsersList() {
   const [loading, setLoading] = useState(true);
   const [dataTable, setDataTable] = useState<Service[]>([]);
@@ -24,7 +24,7 @@ export default function UsersList() {
       setDataTable(response.result);
     } catch (e) {
       const { message } = e as MushroomError;
-      enqueueSnackbar(message, { variant: 'error' });
+      toast.error(message);
     } finally {
       setLoading(false);
     }
